@@ -15,11 +15,12 @@ yttranscript <youtube_url> [OPTIONS]
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `--format` | choice(plain, markdown) | plain | Output format |
+| `--format` | choice(plain, markdown, json) | plain | Output format (JSON deferred P3) |
 | `--output` | path | stdout | Output file path |
 | `--language` | string | en | Transcript language code |
 | `--timestamps/--no-timestamps` | flag | false | Include timestamps |
 | `--list-languages` | flag | false | List available languages |
+| `--force` | flag | false | Overwrite existing files without confirmation |
 | `--help` | flag | - | Show help message |
 | `--version` | flag | - | Show version |
 
@@ -32,8 +33,11 @@ yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ
 # Markdown format with timestamps
 yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ --format markdown --timestamps
 
-# Save to file
-yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ --output transcript.txt
+# Save to file with force overwrite
+yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ --output transcript.txt --force
+
+# Use bare video ID
+yttranscript dQw4w9WgXcQ --format markdown
 
 # Spanish transcript
 yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ --language es
@@ -125,7 +129,7 @@ Check file permissions and disk space
 
 ### Normal Operation
 ```
-Extracting transcript... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+Fetching transcript... ✓
 ```
 
 ### Language Listing

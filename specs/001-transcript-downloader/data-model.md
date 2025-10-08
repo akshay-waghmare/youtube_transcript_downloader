@@ -26,7 +26,11 @@ class Video:
     
     @classmethod
     def from_url(cls, url: str) -> 'Video':
-        """Extract video ID from YouTube URL."""
+        """Extract video ID from YouTube URL or bare video ID."""
+        # Handle bare video ID (11 characters, alphanumeric)
+        if len(url) == 11 and url.isalnum():
+            return cls(video_id=url, url=f"https://youtube.com/watch?v={url}")
+            
         parsed = urlparse(url)
         
         if 'youtube.com' in parsed.netloc:
@@ -36,8 +40,8 @@ class Video:
         else:
             raise ValueError(f"Invalid YouTube URL: {url}")
             
-        if not video_id:
-            raise ValueError(f"Could not extract video ID from: {url}")
+        if not video_id or len(video_id) != 11:
+            raise ValueError(f"Could not extract valid video ID from: {url}")
             
         return cls(video_id=video_id, url=url)
     
@@ -120,6 +124,7 @@ class FormatType(Enum):
     """Supported output formats."""
     PLAIN = "plain"
     MARKDOWN = "markdown"
+    JSON = "json"  # Deferred P3 feature for machine-readable output
 
 class Formatter(Protocol):
     """Interface for transcript formatters."""

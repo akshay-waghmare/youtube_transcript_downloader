@@ -41,7 +41,7 @@ languages = YouTubeTranscriptApi.list_transcripts('video_id')
 
 **Repository**: https://github.com/pallets/click  
 **Stability**: Mature, widely used CLI framework  
-**Features**: Command groups, options, arguments, progress bars
+**Features**: Command groups, options, arguments, status indicators
 
 **Integration Plan**:
 ```python
@@ -49,15 +49,18 @@ import click
 
 @click.command()
 @click.argument('url')
-@click.option('--format', type=click.Choice(['plain', 'markdown']), default='plain')
+@click.option('--format', type=click.Choice(['plain', 'markdown', 'json']), default='plain')
 @click.option('--output', type=click.Path(), help='Output file path')
 @click.option('--language', help='Transcript language code')
 @click.option('--timestamps/--no-timestamps', default=False)
 @click.option('--list-languages', is_flag=True, help='List available languages')
-def extract(url, format, output, language, timestamps, list_languages):
+@click.option('--force', is_flag=True, help='Overwrite existing files without confirmation')
+def extract(url, format, output, language, timestamps, list_languages, force):
     """Extract transcript from YouTube video."""
     pass
 ```
+
+**Status Indicators**: Use click.echo() with status messages and spinner, not progress bars for single API calls.
 
 ## Packaging Strategy
 
@@ -78,6 +81,21 @@ requires-python = ">=3.8"
 dependencies = [
     "youtube-transcript-api>=0.6.0",
     "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "requests-mock>=1.9.0",
+    "ruff>=0.1.0",
+    "pre-commit>=3.0.0",
+]
+
+test = [
+    "pytest>=7.0.0", 
+    "pytest-cov>=4.0.0",
+    "requests-mock>=1.9.0",
 ]
 
 [project.scripts]
@@ -120,7 +138,9 @@ The package will be uvx-compatible by default with proper console script entry p
 
 ### Network Efficiency
 - Single API call per video (avoid redundant requests)
-- Implement connection timeout handling
+- Implement connection timeout handling with requests timeout
+- Implement retry logic with exponential backoff (max 3 retries with jitter)
+- Handle TooManyRequests and generic network errors gracefully
 - Cache language list for repeated operations
 
 ## Testing Infrastructure

@@ -12,7 +12,7 @@ Build a minimal Python CLI tool that extracts YouTube video transcripts using th
 **Language/Version**: Python 3.8+ (broad compatibility requirement)  
 **Primary Dependencies**: youtube-transcript-api (transcript extraction), click (CLI framework), setuptools (packaging)  
 **Storage**: File system for output files, no persistent storage required  
-**Testing**: pytest (unit/integration tests), coverage.py (code coverage tracking)  
+**Testing**: pytest (unit/integration tests), pytest-cov (code coverage tracking), requests-mock (API mocking)  
 **Target Platform**: Cross-platform (Windows, macOS, Linux) CLI application
 **Project Type**: Single-module CLI tool with minimal dependencies  
 **Performance Goals**: <10 seconds transcript extraction, <100MB memory usage  
@@ -144,22 +144,23 @@ yttranscript/
 ### Development Phases
 
 1. **MVP Implementation** (P1 features)
-   - Basic URL parsing and validation
+   - Basic URL parsing and validation (including bare video IDs)
    - Core transcript extraction using youtube-transcript-api
    - Plain text output to stdout
-   - Basic error handling
+   - Basic error handling with retry logic and exponential backoff
 
 2. **Format & Output Extension** (P2 features)
    - Markdown formatting with bullet points
-   - File output with --output flag
+   - File output with --output flag and --force option
    - Optional timestamp inclusion
-   - Progress indicators
+   - Status indicators (spinner/message, not progress bar)
 
 3. **Language & Polish** (P2-P3 features)
    - Multi-language support with --language flag
    - --list-languages functionality
-   - Comprehensive error messages
+   - Comprehensive error messages with templates
    - Package distribution setup
+   - JSON output format (deferred P3 for machine-readable requirement)
 
 ### Testing Strategy
 
