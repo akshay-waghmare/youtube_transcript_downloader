@@ -1,6 +1,6 @@
 # Feature Specification: yttranscript CLI Tool
 
-**Feature Branch**: `001-build-a-youtube`  
+**Feature Branch**: `001-transcript-downloader`  
 **Created**: 2025-01-23  
 **Status**: Draft  
 **Input**: User description: "Build a YouTube transcript downloader CLI tool named 'yttranscript' that accepts a YouTube video URL and extracts the transcript. The tool should support outputting transcripts in plain text and Markdown formats, handle multiple languages, provide clear progress indicators, and gracefully handle errors like unavailable transcripts, private videos, or network issues. The CLI should be simple to use with intuitive flags and helpful error messages"
