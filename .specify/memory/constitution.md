@@ -1,50 +1,42 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: Template → 1.0.0
+Added sections: All core principles and governance
+Templates requiring updates: ✅ All templates aligned
+First constitutional establishment for yttranscript project
+-->
+
+# yttranscript Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Minimalism First
+Every feature must justify its existence. The CLI tool should do one thing well: extract YouTube video transcripts and format them for output. No feature creep. No unnecessary dependencies. Start with the simplest implementation that works, then enhance based on actual user needs.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. CLI-Centric Design
+The primary interface is a command-line tool with clear, predictable behavior. Follow Unix philosophy: read from stdin/args, write to stdout, errors to stderr. Support both interactive use and scripting. Provide both human-readable and machine-readable output formats (plain text, Markdown).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-Driven Development (NON-NEGOTIABLE)
+TDD mandatory for all functionality: Write tests → Verify user approval → Tests fail → Implement → Tests pass. Red-Green-Refactor cycle strictly enforced. Every function must have corresponding unit tests. Integration tests required for YouTube API interactions and file I/O operations.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Robust Error Handling
+Network operations and external API calls MUST handle failures gracefully. Provide meaningful error messages that help users understand what went wrong and how to fix it. Handle common scenarios: network timeouts, unavailable videos, private videos, age-restricted content, API rate limits.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Cross-Platform Compatibility
+The tool must work identically on Windows, macOS, and Linux. Use Python's standard library and cross-platform packages. File paths, text encoding, and output formatting must be consistent across platforms. No platform-specific dependencies unless absolutely necessary.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technical Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+Python 3.8+ required for broad compatibility. Use type hints for all function signatures. Follow PEP 8 style guidelines with black formatting. Dependencies must be minimal and well-maintained. Package installation should be simple: `pip install yttranscript` or `uv tool install yttranscript`.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Quality Assurance
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Code coverage must be ≥90%. All public functions require docstrings with examples. Performance tests for large transcript processing. Security review for any user input handling. Documentation must include installation, usage examples, and troubleshooting guide.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. All features, changes, and decisions must align with these principles. Amendments require justification, community input (if applicable), and migration plan. Complexity must be justified against the Minimalism First principle.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+All pull requests must verify compliance with these principles. Code reviews must check adherence to TDD, error handling, and cross-platform compatibility requirements.
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-23 | **Last Amended**: 2025-01-23
