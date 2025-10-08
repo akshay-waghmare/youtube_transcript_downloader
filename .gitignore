@@ -174,3 +174,7 @@ Thumbs.db
 downloads/
 transcripts/
 *.txt
+
+# GitHub Copilot agent folder security
+# Prevent accidental leakage of credentials or auth tokens
+.github/copilot/
