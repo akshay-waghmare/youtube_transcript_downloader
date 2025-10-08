@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Build a YouTube transcript downloader CLI tool named 'yttranscript' that accepts a YouTube video URL and extracts the transcript. The tool should support outputting transcripts in plain text and Markdown formats, handle multiple languages, provide clear progress indicators, and gracefully handle errors like unavailable transcripts, private videos, or network issues. The CLI should be simple to use with intuitive flags and helpful error messages"
 
+## Clarifications
+
+### Session 2025-01-23
+
+- Q: How should the tool extract transcripts from YouTube videos? → A: Use youtube-transcript-api library (unofficial, no API key needed)
+- Q: Should the tool include timestamp information in transcript output? → A: Include timestamps only when --timestamps flag is used
+- Q: How should the tool handle language selection when multiple transcripts are available? → A: Always default to English, fallback to first available, with separate --list-languages flag and --language flag for selection
+- Q: How should users install and access the yttranscript tool? → A: PyPI package installable via `pip install yttranscript` and can be used using uvx also
+- Q: What specific Markdown formatting should be applied to transcript content? → A: Bullet points for each transcript segment with optional timestamps
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Basic Transcript Extraction (Priority: P1)
@@ -102,15 +112,17 @@ A user encounters various error conditions (private videos, network issues, unav
 ### Functional Requirements
 
 - **FR-001**: System MUST accept YouTube video URLs in standard formats (youtube.com/watch?v=, youtu.be/, etc.)
-- **FR-002**: System MUST extract available transcripts from YouTube videos using official APIs or methods
+- **FR-002**: System MUST extract available transcripts from YouTube videos using youtube-transcript-api library (unofficial method, no API key required)
 - **FR-003**: System MUST support plain text and Markdown output formats
 - **FR-004**: System MUST provide file output option with user-specified filenames
 - **FR-005**: System MUST display clear progress indicators during transcript extraction
-- **FR-006**: System MUST handle multiple languages when available [NEEDS CLARIFICATION: auto-detect primary language or require user specification?]
+- **FR-006**: System MUST default to English language transcripts, fallback to first available language if English unavailable
+- **FR-012**: System MUST provide --list-languages flag to display all available transcript languages for a video
+- **FR-013**: System MUST support --language flag to specify desired transcript language (e.g., --language es for Spanish)
 - **FR-007**: System MUST provide helpful error messages for common failure scenarios
 - **FR-008**: System MUST validate YouTube URLs before attempting extraction
 - **FR-009**: System MUST follow constitutional requirement for cross-platform compatibility
-- **FR-010**: System MUST implement robust error handling for network timeouts and API failures
+- **FR-015**: System MUST format Markdown output as bullet points for each transcript segment, with optional timestamps when --timestamps flag is used
 
 ### Key Entities
 
