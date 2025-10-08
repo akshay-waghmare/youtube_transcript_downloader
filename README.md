@@ -1,56 +1,175 @@
 
-# YouTube Transcript Downloader
+# yttranscript
 
-A tool to download transcripts from YouTube videos, built using **Spec-Driven Development** methodology.
+A minimal Python CLI tool for extracting YouTube video transcripts.
 
 ## Features
 
-- Download transcripts from YouTube videos
-- Support for multiple languages
-- Export to various formats
-
-## Development Workflow
-
-This project follows **Spec-Driven Development** using GitHub's Spec Kit. All development uses structured slash commands:
-
-### 🚀 **Quick Start for Contributors**
-
-1. **Establish Principles**: `/speckit.constitution` - Define project standards
-2. **Create Specifications**: `/speckit.specify` - Define what to build
-3. **Clarify Requirements**: `/speckit.clarify` - Reduce ambiguity (recommended)
-4. **Technical Planning**: `/speckit.plan` - Choose tech stack and architecture
-5. **Create Tasks**: `/speckit.tasks` - Break down into actionable steps
-6. **Implement**: `/speckit.implement` - Execute the plan
-
-### 📚 **Documentation**
-
-- [Complete Workflow Guide](.github/copilot-instructions.md) - Detailed instructions for AI agents
-- [Quick Reference](.github/WORKFLOW_QUICK_REFERENCE.md) - Fast command reference
-- [Project Constitution](.specify/memory/constitution.md) - Core development principles
+- Extract transcripts from YouTube videos using video URLs or video IDs
+- Support for multiple output formats (plain text, Markdown)
+- Optional timestamp inclusion
+- Multi-language transcript support
+- File output with overwrite protection
+- Cross-platform compatibility (Windows, macOS, Linux)
+- No API key required
 
 ## Installation
 
+### From PyPI (when published)
+
 ```bash
-# Installation instructions will be added here
+pip install yttranscript
+```
+
+### Using uvx (recommended for one-time usage)
+
+```bash
+uvx yttranscript https://youtube.com/watch?v=VIDEO_ID
+```
+
+### From Source
+
+```bash
+git clone https://github.com/akshay-waghmare/youtube_transcript_downloader.git
+cd youtube_transcript_downloader
+pip install -e .
 ```
 
 ## Usage
 
+### Basic Usage
+
 ```bash
-# Usage examples will be added here
+# Extract transcript from YouTube URL
+yttranscript https://youtube.com/watch?v=dQw4w9WgXcQ
+
+# Use just the video ID
+yttranscript dQw4w9WgXcQ
+
+# Output to file
+yttranscript dQw4w9WgXcQ --output transcript.txt
 ```
+
+### Output Formats
+
+```bash
+# Plain text (default)
+yttranscript VIDEO_ID --format plain
+
+# Markdown with bullet points
+yttranscript VIDEO_ID --format markdown
+
+# Include timestamps
+yttranscript VIDEO_ID --timestamps
+```
+
+### Language Options
+
+```bash
+# List available languages
+yttranscript VIDEO_ID --list-languages
+
+# Extract specific language
+yttranscript VIDEO_ID --language es
+
+# Extract with Spanish transcript and timestamps in Markdown
+yttranscript VIDEO_ID --language es --format markdown --timestamps
+```
+
+### File Operations
+
+```bash
+# Save to file
+yttranscript VIDEO_ID --output transcript.txt
+
+# Overwrite existing file without confirmation
+yttranscript VIDEO_ID --output transcript.txt --force
+```
+
+## Examples
+
+### Extract transcript in Markdown format with timestamps
+
+```bash
+yttranscript dQw4w9WgXcQ --format markdown --timestamps
+```
+
+Output:
+```markdown
+- **[00:00:00]** We're no strangers to love
+- **[00:00:03]** You know the rules and so do I
+- **[00:00:07]** A full commitment's what I'm thinking of
+```
+
+### Save Spanish transcript to file
+
+```bash
+yttranscript dQw4w9WgXcQ --language es --output transcript_es.txt
+```
+
+### Check available languages
+
+```bash
+yttranscript dQw4w9WgXcQ --list-languages
+```
+
+Output:
+```
+Available languages:
+- en (English)
+- es (Spanish) (auto-generated)
+- fr (French) (auto-generated)
+```
+
+## Supported URL Formats
+
+- `https://youtube.com/watch?v=VIDEO_ID`
+- `https://www.youtube.com/watch?v=VIDEO_ID`
+- `https://youtu.be/VIDEO_ID`
+- `https://youtube.com/embed/VIDEO_ID`
+- `VIDEO_ID` (11-character video ID)
+
+## Error Handling
+
+The tool provides clear error messages for common issues:
+
+- Invalid YouTube URLs
+- Videos without transcripts
+- Private or unavailable videos
+- Network connectivity issues
+- File permission errors
+
+## Requirements
+
+- Python 3.8 or higher
+- Internet connection
+- YouTube videos with available transcripts
 
 ## Contributing
 
-This project uses **Spec-Driven Development**. Please follow the structured workflow:
+This project was built using **Spec-Driven Development** methodology. For development workflow documentation, see:
 
-1. Read the [Copilot Instructions](.github/copilot-instructions.md)
-2. Use the slash commands for any new features or changes
-3. Always start with `/speckit.constitution` to review project principles
-4. Follow the complete workflow for quality assurance
+- [Development Workflow Guide](.github/copilot-instructions.md)
+- [Project Constitution](.specify/memory/constitution.md)
+
+### Development Setup
+
+```bash
+git clone https://github.com/akshay-waghmare/youtube_transcript_downloader.git
+cd youtube_transcript_downloader
+pip install -e .[dev]
+```
+
+### Running Tests
+
+```bash
+pytest                          # Run all tests
+pytest --cov=yttranscript      # Run with coverage
+pytest tests/test_models.py    # Run specific test file
+```
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE)

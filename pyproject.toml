@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yttranscript"
+version = "0.1.0"
+description = "Extract YouTube video transcripts from command line"
+authors = [{name = "YouTube Transcript Downloader", email = "dev@example.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["youtube", "transcript", "cli", "video", "subtitles"]
+dependencies = [
+    "youtube-transcript-api>=0.6.0",
+    "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "requests-mock>=1.9.0",
+    "ruff>=0.1.0",
+    "pre-commit>=3.0.0",
+]
+test = [
+    "pytest>=7.0.0", 
+    "pytest-cov>=4.0.0",
+    "requests-mock>=1.9.0",
+]
+
+[project.scripts]
+yttranscript = "yttranscript.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/akshay-waghmare/youtube_transcript_downloader"
+Repository = "https://github.com/akshay-waghmare/youtube_transcript_downloader"
+Issues = "https://github.com/akshay-waghmare/youtube_transcript_downloader/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=yttranscript --cov-report=term-missing --cov-fail-under=90"
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E203", "W503"]
+
+[tool.ruff.isort]
+known-first-party = ["yttranscript"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "*/test_*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
